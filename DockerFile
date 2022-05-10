@@ -1,0 +1,43 @@
+# Dockerfile
+# Creando un servicio web a través de contenedores
+
+# FROM ubuntu:20.04
+
+# EXPOSE port1 port2 ... portN
+# Abrir puertos virtuales
+#EXPOSE 80 8080 443 3000 21
+
+# usando una imagen desde el repositorio.
+#FROM nginx
+#COPY website /usr/share/nginx/html
+
+# instalando servicio de forma manual.
+FROM ubuntu:20.04
+
+# El comando RUN es para ejecutar comandos
+# Los comandos de repositorios en Linux se encuentran en la carpeta /etc/apt
+# En sources.list
+# En dado caso de que no se cuente con sources.list. Ejecutar un UPDATE a APT
+# Instalando el servicio NGINX...
+RUN apt update
+# En los casos en las que instalaciones requieran confirmación, se utiliza -y
+RUN apt install -y nginx
+RUN apt install -y mysql-server
+
+# Algunas construcciones dependen de otros elementos del SO que son desechados cuando termina un contenedor.
+# Lanzando servicio dentro del contenedor...
+#RUN service nginx start
+#CMD ["service", "nginx", "start"]
+# El comando anterior se ejecuta correctamente pero el contenedor no persiste a pesar de que se le aplique el comando iterativo -it al ejecutarlo
+# Debido a que el proceso se ejecuta y finaliza, haciendo que el contenedor se finalice.
+
+
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
+
+
+# temas sugeridos para lograr esto.
+#
+# procesos en linux
+# configuración en linux
+# demonios en linus
+#

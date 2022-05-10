@@ -1,0 +1,16 @@
+# Dockerfile
+# Creación de una imagen Dockerfile
+
+# imagen base...
+FROM ubuntu:20.04
+
+# instalando el servicio NGINX...
+RUN apt update
+RUN apt install -y nginx
+RUN apt install -y mysql-server
+
+# lanzando servicio dentro del contenedor...
+#RUN service nginx start
+#CMD ["service", "nginx", "start"]
+
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
